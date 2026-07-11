@@ -20,4 +20,9 @@ public class LeadManagmentApplication {
 	public void started() {
 		System.out.println("Application is running at: http://localhost:" + port);
 	}
+
+	public enum Role {
+		ADMIN,
+		MEMBER
+	}
 }
