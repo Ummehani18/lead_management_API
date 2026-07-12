@@ -2,10 +2,14 @@ package com.example.leadManagment.entity;
 
 import com.example.leadManagment.enums.Role;
 import jakarta.persistence.*;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "users")
 public class User {
@@ -14,6 +18,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Getter
     @Column(nullable = false, unique = true)
     private String username;
 
@@ -26,4 +31,24 @@ public class User {
 
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    public String getUsername(){
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 }
