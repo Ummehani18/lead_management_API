@@ -1,3 +1,5 @@
+
+![GitHub last commit](https://img.shields.io/github/last-commit/Ummehani18/lead_management_API?style=for-the-badge)
 # Lead Management System API
 
 
@@ -11,6 +13,8 @@
 
 
 A secure RESTful backend service for managing leads, built using **Spring Boot**. This project demonstrates backend engineering fundamentals including authentication, authorization, database design, API development, validation, and clean architecture.
+
+
 
 This project was developed as part of the **LXD Backend Technical Assessment**.
 
