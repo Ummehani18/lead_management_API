@@ -49,19 +49,19 @@ This project was developed as part of the **LXD Backend Technical Assessment**.
 
 ## Tech Stack
 
-| Technology | Purpose |
-|------------|---------|
-| Java 21 | Programming Language |
-| Spring Boot | Backend Framework |
+| Technology      | Purpose |
+|-----------------|---------|
+| Java 17         | Programming Language |
+| Spring Boot     | Backend Framework |
 | Spring Security | Authentication & Authorization |
 | Spring Data JPA | ORM |
-| PostgreSQL | Database |
-| Maven | Build Tool |
-| Lombok | Boilerplate Reduction |
-| JWT | Authentication |
-| Hibernate | ORM Implementation |
-| Swagger | API Documentation (Planned) |
-| Docker | Containerization (Planned) |
+| PostgreSQL      | Database |
+| Maven           | Build Tool |
+| Lombok          | Boilerplate Reduction |
+| JWT             | Authentication |
+| Hibernate       | ORM Implementation |
+| Swagger         | API Documentation (Planned) |
+| Docker          | Containerization (Planned) |
 
 
 
