@@ -32,23 +32,4 @@ public class User {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    public String getUsername(){
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
 }

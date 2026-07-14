@@ -9,13 +9,17 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import com.example.leadManagment.dto.ErrorResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+@EnableMethodSecurity
 @Configuration
 public class SecurityConfig {
 
@@ -68,14 +72,34 @@ public class SecurityConfig {
                          )
                  )
                  .exceptionHandling(exception -> exception
-                         .authenticationEntryPoint(
-                                 (request, response, authException) -> {
-                                     response.sendError(
-                                             HttpServletResponse.SC_UNAUTHORIZED,
-                                             authException.getMessage()
-                                     );
-                                 }
-                         )
+
+                         // 401 Unauthorized
+                         .authenticationEntryPoint((request, response, authException) -> {
+
+                             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                             response.setContentType("application/json");
+
+                             ErrorResponse error = new ErrorResponse(
+                                     HttpServletResponse.SC_UNAUTHORIZED,
+                                     "Unauthorized"
+                             );
+
+                             new ObjectMapper().writeValue(response.getOutputStream(), error);
+                         })
+
+                         // 403 Forbidden
+                         .accessDeniedHandler((request, response, accessDeniedException) -> {
+
+                             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                             response.setContentType("application/json");
+
+                             ErrorResponse error = new ErrorResponse(
+                                     HttpServletResponse.SC_FORBIDDEN,
+                                     "Access Denied"
+                             );
+
+                             new ObjectMapper().writeValue(response.getOutputStream(), error);
+                         })
                  )
                  .authenticationProvider(authenticationProvider())
                  .addFilterBefore(

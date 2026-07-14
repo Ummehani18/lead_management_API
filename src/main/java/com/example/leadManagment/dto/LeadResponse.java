@@ -1,16 +1,15 @@
 package com.example.leadManagment.dto;
 
 import com.example.leadManagment.enums.LeadStatus;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
 public class LeadResponse {
-    private String id;
+    private Long id;
     private String name;
+    private String phone;
     private String email;
     private String company;
     private LeadStatus status;
