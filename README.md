@@ -12,66 +12,76 @@
 ![License](https://img.shields.io/badge/License-MIT-purple?style=for-the-badge)
 
 
-A secure RESTful backend service for managing leads, built using **Spring Boot**. This project demonstrates backend engineering fundamentals including authentication, authorization, database design, API development, validation, and clean architecture.
+A RESTful backend application built with Spring Boot for managing customer leads. The project demonstrates secure authentication, role-based authorization, CRUD operations, search, pagination, validation, exception handling, API documentation, and containerized deployment using Docker.
 
-
-
-This project was developed as part of the **LXD Backend Technical Assessment**.
-
+---
 
 ## Features
 
-### Authentication
-- JWT-based authentication
-- Secure login endpoint
-- Password encryption using BCrypt
-
-### Authorization
-- Role-Based Access Control (RBAC)
-- Admin role
-- Member role
-
-### Lead Management
-- Create Lead
-- View Lead
-- Update Lead
-- Delete Lead
-
-### Additional Features
-- Search leads by name or phone
-- Pagination support
-- Input validation
-- Global exception handling
-- Proper HTTP status codes
-
-### Bonus (Planned)
+- JWT Authentication
+- Role-Based Authorization (ADMIN & MEMBER)
+- Lead CRUD Operations
+- Search Leads by Name or Phone
+- Pagination Support
+- Bean Validation
+- Global Exception Handling
 - Swagger/OpenAPI Documentation
-- Docker Support
-- Deployment
+- Docker & Docker Compose
+- Environment Variable Configuration
+- PostgreSQL Integration
 
-
+---
 
 ## Tech Stack
 
-| Technology      | Purpose |
-|-----------------|---------|
-| Java 17         | Programming Language |
-| Spring Boot     | Backend Framework |
-| Spring Security | Authentication & Authorization |
-| Spring Data JPA | ORM |
-| PostgreSQL      | Database |
-| Maven           | Build Tool |
-| Lombok          | Boilerplate Reduction |
-| JWT             | Authentication |
-| Hibernate       | ORM Implementation |
-| Swagger         | API Documentation (Planned) |
-| Docker          | Containerization (Planned) |
+### Backend
+- Java 17
+- Spring Boot 3
 
+### Security
+- Spring Security
+- JWT
 
+### Database
+- PostgreSQL
+- Spring Data JPA
+- Hibernate
+
+### Documentation
+- Swagger / OpenAPI
+
+### Build Tool
+- Maven
+
+### Containerization
+- Docker
+- Docker Compose
+
+---
+
+## Architecture
+
+```text
+Client
+   │
+   ▼
+Controller
+   │
+   ▼
+Service
+   │
+   ▼
+Repository
+   │
+   ▼
+PostgreSQL
+```
+
+---
 
 ## Project Structure
 
-```
+```text
 src
 └── main
     ├── java
@@ -80,250 +90,111 @@ src
     │       ├── controller
     │       ├── dto
     │       ├── entity
+    │       ├── enums
     │       ├── exception
+    │       ├── mapper
     │       ├── repository
     │       ├── security
     │       ├── service
-    │       ├── mapper
-    │       └── util
-    │
+    │       └── startup
     └── resources
-        ├── application.properties
-        └── data.sql (optional)
+        └── application.properties
 ```
 
+---
 
+## Running the Project
 
-## Database Design
-
-### User
-
-| Field | Type |
-|-------|------|
-| id | Long |
-| username | String |
-| password | String |
-| role | Enum |
-| createdAt | Timestamp |
-
-
-
-### Lead
-
-| Field | Type |
-|-------|------|
-| id | Long |
-| name | String |
-| phone | String |
-| email | String |
-| company | String |
-| status | Enum |
-| createdAt | Timestamp |
-| updatedAt | Timestamp |
-
-
-
-## Roles
-
-### ADMIN
-
-Can
-
-- Create Lead
-- View Lead
-- Update Lead
-- Delete Lead
-- Search Leads
-
-
-
-### MEMBER
-
-Can
-
-- View Leads
-- Search Leads
-
-
-
-## API Endpoints
-
-### Authentication
-
-| Method | Endpoint | Description |
-|---------|----------|-------------|
-| POST | /auth/login | User Login |
-
-
-
-### Leads
-
-| Method | Endpoint | Description |
-|---------|----------|-------------|
-| POST | /leads | Create Lead |
-| GET | /leads | Get All Leads |
-| GET | /leads/{id} | Get Lead By ID |
-| PUT | /leads/{id} | Update Lead |
-| DELETE | /leads/{id} | Delete Lead |
-| GET | /leads/search | Search Leads |
-
-
-
-## Pagination
-
-Example
-
-```
-GET /leads?page=0&size=10
-```
-
-
-## Authentication
-
-All protected APIs require a JWT token.
-
-Example Header
-
-```
-Authorization: Bearer <JWT_TOKEN>
-```
-
-
-
-## Validation
-
-The application validates user input using Bean Validation.
-
-Examples
-
-- Required fields
-- Email validation
-- Phone validation
-- Invalid request handling
-
-
-
-## Exception Handling
-
-The API returns standardized error responses.
-
-Example
-
-```json
-{
-  "timestamp": "2026-07-13T12:00:00",
-  "status": 400,
-  "message": "Phone number is required"
-}
-```
-
-
-
-## Getting Started
-
-### Prerequisites
-
-- Java 21
-- Maven
-- PostgreSQL
-- IntelliJ IDEA (Recommended)
-
-
-
-### Clone Repository
+### Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/lead-management-api.git
-
-cd lead-management-api
+git clone https://github.com/<your-username>/leadmanagement.git
+cd leadmanagement
 ```
 
+### Configure Environment Variables
 
+Create a `.env` file and add:
 
-### Create Database
-
-```sql
-CREATE DATABASE lead_management;
+```text
+SERVER_PORT=8080
+SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/lead_management
+SPRING_DATASOURCE_USERNAME=postgres
+SPRING_DATASOURCE_PASSWORD=Postgresql
+JWT_SECRET=your-secret-key
+JWT_EXPIRATION=3600000
 ```
 
-
-
-### Configure Database
-
-Update the following properties inside
-
-```
-application.properties
-```
-
-```properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/lead_management
-spring.datasource.username=postgres
-spring.datasource.password=your_password
-
-spring.jpa.hibernate.ddl-auto=update
-```
-
-
-
-### Run Application
+### Run Locally
 
 ```bash
+mvn clean install
 mvn spring-boot:run
 ```
 
-or
+### Run with Docker
 
-Run
-
-```
-LeadManagementApplication.java
+```bash
+docker compose up --build
 ```
 
+---
+
+## API Documentation
+
+After starting the application, open:
+
+Local:
+
+```
+http://localhost:8080/swagger-ui/index.html
+```
+
+Docker:
+
+```
+http://localhost:8081/swagger-ui/index.html
+```
+
+---
+
+## Default Users
+
+### Administrator
+
+| Username | Password |
+|----------|----------|
+| admin | admin123 |
+
+### Member
+
+| Username | Password |
+|----------|----------|
+| member | member123 |
+
+---
+
+## Screenshots
+
+- Swagger UI
+![img.png](screenshots/img.png)
 
 
-## Testing
-
-Use
-
-- Postman
-- Swagger (Coming Soon)
+- PostgreSQL Tables
+![img_4.png](screenshots/img_4.png)
 
 
-
-## Future Improvements
-
-- Refresh Token Authentication
-- Soft Delete
-- Unit Testing
-- Integration Testing
-- Docker
-- CI/CD Pipeline
-- Deployment
-- API Rate Limiting
-- Audit Logging
+- Login Response
+![img_1.png](screenshots/img_1.png)
 
 
-## Git Commit Strategy
-
-- Initial Project Setup
-- Database Configuration
-- Entity Design
-- JWT Authentication
-- Spring Security Configuration
-- CRUD Implementation
-- Search and Pagination
-- Validation and Exception Handling
-- Swagger Integration
-- Docker Support
-- Documentation
+- CRUD Operations
+![img_2.png](screenshots/img_2.png)
 
 
+- Search API
+  ![img_3.png](screenshots/img_3.png)
 
-## Author
 
-**Umme Hani**
-
-Backend Developer
-
-Java • Spring Boot • PostgreSQL • REST APIs
+- Pagination
+![img.png](screenshots/img5.png)
