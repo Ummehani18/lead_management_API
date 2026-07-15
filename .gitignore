@@ -1,7 +1,7 @@
 HELP.md
 
 .env
-.env.*
+
 .idea/
 .\*.iml
 
