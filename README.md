@@ -25,15 +25,14 @@ The application provides secure JWT authentication, role-based authorization, le
 
 ### API Base URL
 
-```
+
 https://lead-management-api-gned.onrender.com
-```
 
 ### Swagger Documentation
 
-```
+
 https://lead-management-api-gned.onrender.com/swagger-ui/index.html
-```
+
 
 ---
 
